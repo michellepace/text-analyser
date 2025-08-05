@@ -16,11 +16,11 @@ def test_main_with_file():
 
     try:
         with patch("sys.argv", ["text-analyser", temp_path]):
-            with patch("builtins.print") as mock_print:
+            with patch("text_analyser.main.logger") as mock_logger:
                 analyse_file()
-                # Note: We only test key outputs; analyse_file() prints 4 lines total
-                mock_print.assert_any_call(f"File: {temp_path}")
-                mock_print.assert_any_call("Words: 3")
+                # Verify logger.info calls for output
+                mock_logger.info.assert_any_call("File: %s", temp_path)
+                mock_logger.info.assert_any_call("Words: %s", 3)
     finally:
         os.unlink(temp_path)
 
