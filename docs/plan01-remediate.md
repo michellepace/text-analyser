@@ -134,11 +134,12 @@ uv run text-analyser nonexistent.txt
 ## Deliverable 4: Add Integration Tests
 
 **Implementation**:
-- Create `tests/test_integration.py` with end-to-end CLI tests
+- Create `tests/test_integration.py` with 8 end-to-end CLI tests using subprocess
+- Safe subprocess helper using `shutil.which()` for full executable paths
 - Test CLI with valid files using temporary test files
 - Test CLI error scenarios (missing files, permission errors, invalid arguments)
-- Test CLI help functionality using subprocess
-- Ensure tests cover complete workflow from CLI input to output
+- Test CLI help functionality and argument validation
+- Ensure tests cover complete workflow from CLI input to output with real exit codes
 
 **Final Steps**:
 - Run `uv run pre-commit run --all-files` to ensure code quality
@@ -149,31 +150,31 @@ uv run text-analyser nonexistent.txt
 uv run pytest tests/test_integration.py -v
 # Should show all integration tests passing
 ```
-- [ ] All integration tests pass
+- [x] All integration tests pass
 
 ```bash
 # Run complete test suite
 uv run pytest -v
 # Should show all tests (unit + integration) passing
 ```
-- [ ] All unit tests still pass
-- [ ] All integration tests pass
-- [ ] No test failures or errors
+- [x] All unit tests still pass (13 unit + 8 integration = 21 total)
+- [x] All integration tests pass
+- [x] No test failures or errors
 
 ```bash
 # Test CLI still works after all changes
 uv run text-analyser README.md
 # Should display correct file statistics
 ```
-- [ ] File statistics displayed correctly
+- [x] File statistics displayed correctly
 
 ```bash
 # Verify global installation still works (if installed)
 text-analyser README.md
 # Should work identically to uv run version
 ```
-- [ ] Global installation works (if applicable)
-- [ ] Output identical to `uv run` version
+- [x] Global installation works (if applicable)
+- [x] Output identical to `uv run` version
 
 ## Expected Verification Results
 After each deliverable, you should see:
@@ -187,6 +188,13 @@ After each deliverable, you should see:
 - [x] Deliverable 1 completed and verified
 - [x] Deliverable 2 completed and verified
 - [x] Deliverable 3 completed and verified
-- [ ] Deliverable 4 completed and verified
-- [x] All verification tests passing for completed deliverables
-- [x] Pre-commit hooks passing for all completed deliverables
+- [x] Deliverable 4 completed and verified
+- [x] All verification tests passing for all deliverables
+- [x] Pre-commit hooks passing for all deliverables
+
+## Final Results
+- ✅ **21 tests total** (13 unit tests + 8 integration tests)
+- ✅ **Complete CLI workflow coverage** with real subprocess execution
+- ✅ **All error scenarios tested** with proper exit code validation
+- ✅ **Professional CLI behavior** with argparse, help functionality, and pathlib usage
+- ✅ **Clean, maintainable codebase** with modern Python practices
