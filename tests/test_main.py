@@ -9,7 +9,7 @@ import pytest
 from text_analyser.main import analyse_file
 
 
-def test_main_with_file():
+def test_main_with_file() -> None:
     with tempfile.NamedTemporaryFile(mode="w", delete=False, encoding="utf-8") as f:
         f.write("hello world\ntest")
         temp_path = f.name
@@ -27,7 +27,7 @@ def test_main_with_file():
         Path(temp_path).unlink()
 
 
-def test_main_no_args():
+def test_main_no_args() -> None:
     with (
         patch("sys.argv", ["text-analyser"]),
         pytest.raises(SystemExit),
