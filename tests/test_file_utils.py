@@ -1,7 +1,7 @@
 """Tests for file operations."""
 
-import os
 import tempfile
+from pathlib import Path
 
 import pytest
 
@@ -17,7 +17,7 @@ def test_read_file_success():
         content = read_file(temp_path)
         assert content == "test content"
     finally:
-        os.unlink(temp_path)
+        Path(temp_path).unlink()
 
 
 def test_read_file_not_found():
