@@ -1,20 +1,9 @@
 # README: Text Analyser With UV
 
-Shows [UV](https://docs.astral.sh/uv/)'s Python tooling through a simple text analysis tool. UV is a modern package manager that handles dependencies, environments, and project setup in one tool.
-
-Features a Python packaged application, TDD with pytest, linting with ruff, and pre-commit Git hooks. Includes Cursor / VSCode recommended extensions, workspace settings, and ruff/pylance configuration (pyproject.toml).
+**Shows [UV](https://docs.astral.sh/uv/)'s Python tooling through a simple text analysis tool.** UV is a modern package manager that handles dependencies, environments, and project setup in one tool. This project features a Python packaged application, pytest TDD, ruff linting, and [pre-commit hooks](.pre-commit-config.yaml). Includes IDE setup with [extensions](.vscode/extensions.json), [settings](.vscode/settings.json), and ruff/pylance [config](pyproject.toml).
 
 ```bash
-# UV runs the CLI command in project environment
-mp@laptopmp ~/projects/python/text-analyser git:(main) ✗ 
-$ uv run text-analyser README.md
-
-File: README.md
-Words: 752
-Lines: 161
-Characters: 5671
-
-# Direct execution - packaged CLI available in PATH (global)
+# Run from anywhere (packaged CLI available in PATH)
 mp@laptopmp ~/ 
 $ text-analyser anywhere/HORSE.md 
 
@@ -69,11 +58,19 @@ uv sync
 
 ## Usage
 
+Run as a command line tool:
+
 ```bash
+# Direct execution - packaged CLI available in PATH (global)
 text-analyser filename.txt
 ```
 
-## Development
+Run as command in project environment
+
+```
+# UV runs the CLI command in project environment
+uv run text-analyser filename.txt
+```
 
 **a) Install IDE Extensions**
 
