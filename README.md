@@ -17,6 +17,8 @@ Characters: 6128
 
 The project includes IDE setup with [extensions](.vscode/extensions.json), [settings](.vscode/settings.json), ruff/pylance [config](pyproject.toml), and [gitattributes](.gitattributes) to support development on any platform.
 
+![pip to uv migration diagram](images/pip-to-uv.jpg)
+
 ## Prerequisites
 
 UV must be installed on your system. See the [installation guide](https://docs.astral.sh/uv/getting-started/installation/) for setup instructions.
