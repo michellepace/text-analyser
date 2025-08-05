@@ -15,17 +15,21 @@ def test_main_with_file():
         temp_path = f.name
 
     try:
-        with patch("sys.argv", ["text-analyser", temp_path]):
-            with patch("text_analyser.main.logger") as mock_logger:
-                analyse_file()
-                # Verify logger.info calls for output
-                mock_logger.info.assert_any_call("File: %s", temp_path)
-                mock_logger.info.assert_any_call("Words: %s", 3)
+        with (
+            patch("sys.argv", ["text-analyser", temp_path]),
+            patch("text_analyser.main.logger") as mock_logger,
+        ):
+            analyse_file()
+            # Verify logger.info calls for output
+            mock_logger.info.assert_any_call("File: %s", temp_path)
+            mock_logger.info.assert_any_call("Words: %s", 3)
     finally:
         os.unlink(temp_path)
 
 
 def test_main_no_args():
-    with patch("sys.argv", ["text-analyser"]):
-        with pytest.raises(SystemExit):
-            analyse_file()
+    with (
+        patch("sys.argv", ["text-analyser"]),
+        pytest.raises(SystemExit),
+    ):
+        analyse_file()
