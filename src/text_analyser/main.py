@@ -1,21 +1,22 @@
 """CLI interface for text analysis."""
 
+import argparse
 import sys
 from pathlib import Path
 
 from .analyser import analyze_text
 from .file_utils import read_file
 
-EXPECTED_ARGS = 2
-
 
 def analyse_file() -> None:
     """Analyse a text file and display word, line, and character counts."""
-    if len(sys.argv) != EXPECTED_ARGS:
-        print("Usage: text-analyser <filename>", file=sys.stderr)
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description="Analyse text files for word, line, and character counts"
+    )
+    parser.add_argument("filename", type=Path, help="Path to the text file to analyse")
 
-    filepath = Path(sys.argv[1])
+    args = parser.parse_args()
+    filepath = args.filename
     try:
         content = read_file(filepath)
     except FileNotFoundError:

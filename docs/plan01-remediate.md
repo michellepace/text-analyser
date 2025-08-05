@@ -84,9 +84,9 @@ uv run python -c "from text_analyser.file_utils import read_file; from pathlib i
 
 **Implementation**:
 - Replace `sys.argv` parsing with `argparse.ArgumentParser`
-- Add `--help` functionality with proper description
-- Implement better error messages and argument validation
-- Handle file existence and readability checks in CLI layer
+- Add CLI description: "Analyse text files for word, line, and character counts"
+- Add argument help text for filename parameter
+- Use `type=Path` in argparse for automatic Path conversion
 - Remove `EXPECTED_ARGS` constant
 
 **Final Steps**:
@@ -98,30 +98,38 @@ uv run python -c "from text_analyser.file_utils import read_file; from pathlib i
 uv run text-analyser --help
 # Should show proper usage, description, and options
 ```
-- [ ] Help message shows proper usage
-- [ ] Help message shows description
-- [ ] Help message shows available options
+- [x] Help message shows proper usage
+- [x] Help message shows description
+- [x] Help message shows available options
 
 ```bash
 # Test error handling
 uv run text-analyser
 # Should show usage message and exit with code 2 (argparse standard)
 ```
-- [ ] Usage message shown when no arguments
-- [ ] Exit code is 2
+- [x] Usage message shown when no arguments
+- [x] Exit code is 2
 
 ```bash
 uv run text-analyser file1.txt file2.txt  
 # Should show error about too many arguments
 ```
-- [ ] Error message about too many arguments
+- [x] Error message about too many arguments
 
 ```bash
 # Test normal functionality still works
 uv run text-analyser README.md
 # Should display file statistics correctly
 ```
-- [ ] File statistics displayed correctly
+- [x] File statistics displayed correctly
+
+**Additional Verification**:
+```bash
+# Test file error handling still works
+uv run text-analyser nonexistent.txt
+# Should show file error message and exit code 1
+```
+- [x] File error handling preserved (exit code 1 for runtime errors)
 
 ## Deliverable 4: Add Integration Tests
 
@@ -178,7 +186,7 @@ After each deliverable, you should see:
 ## Summary Checklist
 - [x] Deliverable 1 completed and verified
 - [x] Deliverable 2 completed and verified
-- [ ] Deliverable 3 completed and verified
+- [x] Deliverable 3 completed and verified
 - [ ] Deliverable 4 completed and verified
 - [x] All verification tests passing for completed deliverables
 - [x] Pre-commit hooks passing for all completed deliverables
