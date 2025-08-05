@@ -2,7 +2,6 @@
 
 import shutil
 import subprocess
-import tempfile
 from pathlib import Path
 
 
@@ -32,22 +31,18 @@ def test_cli_help() -> None:
     assert "Path to the text file to analyse" in result.stdout
 
 
-def test_cli_success_with_valid_file() -> None:
+def test_cli_success_with_valid_file(tmp_path: Path) -> None:
     """Test CLI works correctly with a valid file."""
-    with tempfile.NamedTemporaryFile(mode="w", delete=False, encoding="utf-8") as f:
-        f.write("hello world\ntest file")
-        temp_path = f.name
+    test_file = tmp_path / "sample.txt"
+    test_file.write_text("hello world\ntest file", encoding="utf-8")
 
-    try:
-        result = run_cli_command(temp_path)
+    result = run_cli_command(str(test_file))
 
-        assert result.returncode == 0
-        assert f"File: {temp_path}" in result.stdout
-        assert "Words: 4" in result.stdout
-        assert "Lines: 2" in result.stdout
-        assert "Characters: 21" in result.stdout
-    finally:
-        Path(temp_path).unlink()
+    assert result.returncode == 0
+    assert f"File: {test_file}" in result.stdout
+    assert "Words: 4" in result.stdout
+    assert "Lines: 2" in result.stdout
+    assert "Characters: 21" in result.stdout
 
 
 def test_cli_file_not_found_exit_code() -> None:
@@ -74,38 +69,27 @@ def test_cli_too_many_arguments_exit_code() -> None:
     assert "error: unrecognized arguments: file2.txt" in result.stderr
 
 
-def test_cli_unicode_decode_error() -> None:
+def test_cli_unicode_decode_error(tmp_path: Path) -> None:
     """Test CLI handles Unicode decode errors correctly."""
-    with tempfile.NamedTemporaryFile(mode="wb", delete=False) as f:
-        f.write(b"\xff\xfe\x00\x00")  # Invalid UTF-8 bytes
-        temp_path = f.name
+    test_file = tmp_path / "invalid.txt"
+    test_file.write_bytes(b"\xff\xfe\x00\x00")  # Invalid UTF-8 bytes
 
-    try:
-        result = run_cli_command(temp_path)
+    result = run_cli_command(str(test_file))
 
-        assert result.returncode == 1
-        assert f"Error: Cannot decode '{temp_path}' as UTF-8." in result.stderr
-    finally:
-        Path(temp_path).unlink()
+    assert result.returncode == 1
+    assert f"Error: Cannot decode '{test_file}' as UTF-8." in result.stderr
 
 
-def test_cli_permission_error() -> None:
+def test_cli_permission_error(tmp_path: Path) -> None:
     """Test CLI handles permission errors correctly."""
-    with tempfile.NamedTemporaryFile(mode="w", delete=False, encoding="utf-8") as f:
-        f.write("test content")
-        temp_path = f.name
+    test_file = tmp_path / "restricted.txt"
+    test_file.write_text("test content", encoding="utf-8")
+    test_file.chmod(0o000)  # Remove read permissions
 
-    try:
-        # Remove read permissions
-        Path(temp_path).chmod(0o000)
-        result = run_cli_command(temp_path)
+    result = run_cli_command(str(test_file))
 
-        assert result.returncode == 1
-        assert f"Error: Permission denied reading '{temp_path}'." in result.stderr
-    finally:
-        # Restore permissions for cleanup
-        Path(temp_path).chmod(0o644)
-        Path(temp_path).unlink()
+    assert result.returncode == 1
+    assert f"Error: Permission denied reading '{test_file}'." in result.stderr
 
 
 def test_cli_with_readme() -> None:
