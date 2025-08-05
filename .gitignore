@@ -8,3 +8,30 @@ wheels/
 
 # Virtual environments
 .venv
+venv/
+env/
+
+# OS-specific files (cross-platform)
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Editor/IDE files
+.idea/
+*.swp
+*.swo
+*~
+
+# VS Code - ignore personal files
+.vscode/launch.json
+.vscode/tasks.json
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
