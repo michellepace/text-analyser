@@ -1,12 +1,13 @@
 """File reading utilities with error handling."""
 
 import sys
+from pathlib import Path
 
 
 def read_file(filepath: str) -> str:
     """Read file content with proper encoding and error handling."""
     try:
-        with open(filepath, "r", encoding="utf-8") as f:
+        with Path(filepath).open(encoding="utf-8") as f:
             return f.read()
     except FileNotFoundError:
         print(f"Error: File '{filepath}' not found.", file=sys.stderr)

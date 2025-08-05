@@ -5,10 +5,12 @@ import sys
 from .analyser import analyze_text
 from .file_utils import read_file
 
+EXPECTED_ARGS = 2
+
 
 def analyse_file() -> None:
     """Analyse a text file and display word, line, and character counts."""
-    if len(sys.argv) != 2:
+    if len(sys.argv) != EXPECTED_ARGS:
         print("Usage: text-analyser <filename>", file=sys.stderr)
         sys.exit(1)
 
