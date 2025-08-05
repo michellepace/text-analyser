@@ -79,6 +79,8 @@ uv build --no-sources     # Build for publishing (no local sources)
 uv sync # Create .venv (if needed) and install all dependencies
 uv run pytest                     # Run tests
 uv run ruff check                 # Run linter
+uv run pre-commit run --all-files # Run all pre-commit hooks on entire codebase
+uv run pre-commit run             # Run pre-commit hooks on staged files only
 uv lock --upgrade-package httpx   # Update specific package
 ```
 
