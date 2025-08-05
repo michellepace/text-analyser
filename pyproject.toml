@@ -23,6 +23,19 @@ dev = [
     "ruff>=0.12.7",
 ]
 
+[tool.pyright]
+# Type Checker is needed as Ruff is only a linter: https://docs.astral.sh/ruff/faq/
+# For Cursor (Cursor Pyright extension), for VSCode (Microsoft Pylance)
+# Cursor Pyright forks BasedPyright, some lint rules overlap with Ruff, causes dupe errors
+
+# CP default
+typeCheckingMode = "standard"
+
+# Disable Basedpyright rules that dupe Ruff
+reportUnusedImport = false      # Ruff F401 handles it
+reportUnusedVariable = false    # Ruff F841 handles it
+reportDuplicateImport = false   # Ruff F811 handles it
+
 [tool.ruff]
 # Strictest ruff settings
 line-length = 88
@@ -60,19 +73,3 @@ max-statements = 50
 
 [tool.ruff.lint.mccabe]
 max-complexity = 10
-
-[tool.pyright]
-# Cursor Pyright explanation:
-#  Ruff is a linter, not a type checker, it recommends using one: https://docs.astral.sh/ruff/faq/
-#  The Cursor Pyright extension (CP) is a replacement for Microsoft Pylance (proprietary to VSCode)
-#  CP uses the Basedpyright language server (BP) (a fork of Pyright used by Microsoft Pylance)
-#  CP v1.0.8+ sets BP to "standard" type checking mode when "[tool.pyright]" is present
-#  BP has some linting-style rules that overlap with Ruff, causing duplicate errors
-
-# Type checking mode (CP defaults to "standard" with pyproject.toml)
-typeCheckingMode = "standard"
-
-# Disable Basedpyright rules that duplicate Ruff as you go
-reportUnusedImport = false      # Ruff F401 handles it
-reportUnusedVariable = false    # Ruff F841
-reportDuplicateImport = false   # Ruff F811
