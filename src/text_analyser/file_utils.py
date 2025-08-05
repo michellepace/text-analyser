@@ -2,6 +2,7 @@
 
 import logging
 import sys
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
@@ -9,7 +10,7 @@ logger = logging.getLogger(__name__)
 def read_file(filepath: str) -> str:
     """Read file content with proper encoding and error handling."""
     try:
-        with open(filepath, encoding="utf-8") as f:
+        with Path(filepath).open(encoding="utf-8") as f:
             return f.read()
     except FileNotFoundError:
         logger.exception("File '%s' not found.", filepath)
