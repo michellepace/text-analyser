@@ -17,7 +17,7 @@ Characters: 6128
 
 The project includes IDE setup with [extensions](.vscode/extensions.json), [settings](.vscode/settings.json), ruff/pylance [config](pyproject.toml), and [gitattributes](.gitattributes) to support development on any platform.
 
-![pip to uv migration diagram](images/pip-to-uv.jpg)
+![pip to uv migration diagram](images/pip-to-uv.webp)
 
 ## Prerequisites
 
