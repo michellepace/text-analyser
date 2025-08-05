@@ -15,7 +15,18 @@ def analyse_file() -> None:
         sys.exit(1)
 
     filepath = sys.argv[1]
-    content = read_file(filepath)
+    try:
+        content = read_file(filepath)
+    except FileNotFoundError:
+        print(f"Error: File '{filepath}' not found.", file=sys.stderr)
+        sys.exit(1)
+    except UnicodeDecodeError:
+        print(f"Error: Cannot decode '{filepath}' as UTF-8.", file=sys.stderr)
+        sys.exit(1)
+    except PermissionError:
+        print(f"Error: Permission denied reading '{filepath}'.", file=sys.stderr)
+        sys.exit(1)
+
     results = analyze_text(content)
 
     print(f"File: {filepath}")
