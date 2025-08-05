@@ -14,7 +14,7 @@ def test_read_file_success() -> None:
         temp_path = f.name
 
     try:
-        content = read_file(temp_path)
+        content = read_file(Path(temp_path))
         assert content == "test content"
     finally:
         Path(temp_path).unlink()
@@ -22,7 +22,7 @@ def test_read_file_success() -> None:
 
 def test_read_file_not_found() -> None:
     with pytest.raises(FileNotFoundError):
-        read_file("nonexistent_file.txt")
+        read_file(Path("nonexistent_file.txt"))
 
 
 def test_read_file_unicode_error() -> None:
@@ -32,7 +32,7 @@ def test_read_file_unicode_error() -> None:
 
     try:
         with pytest.raises(UnicodeDecodeError):
-            read_file(temp_path)
+            read_file(Path(temp_path))
     finally:
         Path(temp_path).unlink()
 
@@ -46,7 +46,7 @@ def test_read_file_permission_error() -> None:
         # Remove read permissions
         Path(temp_path).chmod(0o000)
         with pytest.raises(PermissionError):
-            read_file(temp_path)
+            read_file(Path(temp_path))
     finally:
         # Restore permissions for cleanup
         Path(temp_path).chmod(0o644)

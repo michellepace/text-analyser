@@ -3,7 +3,7 @@
 from pathlib import Path
 
 
-def read_file(filepath: str) -> str:
+def read_file(filepath: Path) -> str:
     """Read file content with proper encoding and error handling."""
-    with Path(filepath).open(encoding="utf-8") as f:
+    with filepath.open(encoding="utf-8") as f:
         return f.read()

@@ -1,13 +1,12 @@
 # Implementation Plan for Critical Remediations
 
-## Deliverable 1: Remove sys.exit() from Utilities + Custom Exceptions
+## Deliverable 1: Remove sys.exit() from Utilities (Simple Approach)
 
 **Implementation**:
-- Create custom exceptions in `file_utils.py`: `TextAnalyserError`, `FileReadError`
-- Replace all `sys.exit()` calls with appropriate exception raising
-- Update `read_file()` to raise exceptions instead of terminating
-- Modify `main.py` to catch and handle these exceptions gracefully
-- Remove unused `sys` import from `file_utils.py`
+- Remove `sys.exit()` calls from `read_file()` - let built-in exceptions bubble up naturally
+- Handle `FileNotFoundError`, `UnicodeDecodeError`, and `PermissionError` in `main.py`
+- Maintain user-friendly error messages and proper exit codes in CLI layer
+- Add comprehensive unit tests for all exception scenarios
 
 **Final Steps**:
 - Run `uv run pre-commit run --all-files` to ensure code quality
@@ -18,30 +17,46 @@
 uv run python -c "from text_analyser.file_utils import read_file; print('Testing...'); read_file('nonexistent.txt')"
 # Should show exception traceback, not silent exit
 ```
-- [ ] Exception traceback shown (not silent exit)
+- [x] Exception traceback shown (not silent exit)
 
 ```bash
 # Test CLI still works with good files
 uv run text-analyser README.md
 # Should display file statistics
 ```
-- [ ] File statistics displayed correctly
+- [x] File statistics displayed correctly
 
 ```bash
 # Test CLI handles errors gracefully  
 uv run text-analyser nonexistent.txt
 # Should show user-friendly error message and exit code 1
 ```
-- [ ] User-friendly error message shown
-- [ ] Exit code is 1
+- [x] User-friendly error message shown
+- [x] Exit code is 1
+
+**Additional Tests Added**:
+```bash
+# Test Unicode decode error handling
+echo -e '\xff\xfe\x00\x00' > invalid_utf8.bin && uv run text-analyser invalid_utf8.bin
+# Should show UTF-8 decode error message
+```
+- [x] Unicode decode error handled properly
+
+```bash
+# Test permission error handling  
+echo "test" > no_read.txt && chmod 000 no_read.txt && uv run text-analyser no_read.txt
+# Should show permission denied error message
+```
+- [x] Permission error handled properly
 
 ## Deliverable 2: Use pathlib Consistently for File Operations
 
 **Implementation**:
-- Update `read_file(filepath: str)` to `read_file(filepath: Path | str)`
-- Convert string inputs to Path objects in `main.py`
-- Update all type hints and docstrings
-- Ensure cross-platform path handling throughout
+- Update `read_file(filepath: str)` to `read_file(filepath: Path)`
+- Convert `sys.argv[1]` to `Path` object early in `main.py`
+- Remove internal `Path()` conversion from `read_file()` - now handled at entry point
+- Update all tests to pass `Path` objects
+- Add `from pathlib import Path` import to `main.py`
 
 **Final Steps**:
 - Run `uv run pre-commit run --all-files` to ensure code quality
@@ -51,19 +66,19 @@ uv run text-analyser nonexistent.txt
 # Test cross-platform path handling
 uv run text-analyser "README.md"
 uv run text-analyser "./README.md"  
-uv run text-analyser "../text-analyser/README.md"
+uv run text-analyser "src/../README.md"
 # All should work correctly
 ```
-- [ ] `"README.md"` works correctly
-- [ ] `"./README.md"` works correctly  
-- [ ] `"../text-analyser/README.md"` works correctly
+- [x] `"README.md"` works correctly
+- [x] `"./README.md"` works correctly  
+- [x] `"src/../README.md"` works correctly (complex relative paths)
 
 ```bash
 # Test type checker is happy
 uv run python -c "from text_analyser.file_utils import read_file; from pathlib import Path; read_file(Path('README.md'))"
 # Should execute without type errors
 ```
-- [ ] No type errors when using Path objects
+- [x] No type errors when using Path objects
 
 ## Deliverable 3: Implement argparse for CLI
 
@@ -161,9 +176,9 @@ After each deliverable, you should see:
 - [ ] ✅ Type checking clean with proper pathlib usage
 
 ## Summary Checklist
-- [ ] Deliverable 1 completed and verified
-- [ ] Deliverable 2 completed and verified
+- [x] Deliverable 1 completed and verified
+- [x] Deliverable 2 completed and verified
 - [ ] Deliverable 3 completed and verified
 - [ ] Deliverable 4 completed and verified
-- [ ] All verification tests passing
-- [ ] Pre-commit hooks passing for all deliverables
+- [x] All verification tests passing for completed deliverables
+- [x] Pre-commit hooks passing for all completed deliverables

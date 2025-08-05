@@ -1,6 +1,7 @@
 """CLI interface for text analysis."""
 
 import sys
+from pathlib import Path
 
 from .analyser import analyze_text
 from .file_utils import read_file
@@ -14,7 +15,7 @@ def analyse_file() -> None:
         print("Usage: text-analyser <filename>", file=sys.stderr)
         sys.exit(1)
 
-    filepath = sys.argv[1]
+    filepath = Path(sys.argv[1])
     try:
         content = read_file(filepath)
     except FileNotFoundError:
