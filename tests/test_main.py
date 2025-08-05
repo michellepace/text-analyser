@@ -1,7 +1,7 @@
 """Tests for CLI interface."""
 
-import os
 import tempfile
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -24,7 +24,7 @@ def test_main_with_file():
             mock_logger.info.assert_any_call("File: %s", temp_path)
             mock_logger.info.assert_any_call("Words: %s", 3)
     finally:
-        os.unlink(temp_path)
+        Path(temp_path).unlink()
 
 
 def test_main_no_args():
