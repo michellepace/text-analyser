@@ -14,10 +14,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+EXPECTED_ARGS = 2
+
 
 def analyse_file() -> None:
     """Analyse a text file and display word, line, and character counts."""
-    if len(sys.argv) != 2:
+    if len(sys.argv) != EXPECTED_ARGS:
         logger.error("Usage: text-analyser <filename>")
         sys.exit(1)
 
