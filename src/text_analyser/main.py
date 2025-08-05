@@ -1,25 +1,34 @@
 """CLI interface for text analysis."""
 
+import logging
 import sys
 
 from .analyser import analyze_text
 from .file_utils import read_file
 
+# Configure logging for CLI output
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(message)s",
+    handlers=[logging.StreamHandler()],
+)
+logger = logging.getLogger(__name__)
+
 
 def analyse_file() -> None:
     """Analyse a text file and display word, line, and character counts."""
     if len(sys.argv) != 2:
-        print("Usage: text-analyser <filename>", file=sys.stderr)
+        logger.error("Usage: text-analyser <filename>")
         sys.exit(1)
 
     filepath = sys.argv[1]
     content = read_file(filepath)
     results = analyze_text(content)
 
-    print(f"File: {filepath}")
-    print(f"Words: {results['words']}")
-    print(f"Lines: {results['lines']}")
-    print(f"Characters: {results['characters']}")
+    logger.info("File: %s", filepath)
+    logger.info("Words: %s", results["words"])
+    logger.info("Lines: %s", results["lines"])
+    logger.info("Characters: %s", results["characters"])
 
 
 if __name__ == "__main__":
