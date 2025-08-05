@@ -1,6 +1,8 @@
-# README: Text Analyser With UV
+# README — Text Analyser With UV 🎯
 
-**Shows [UV](https://docs.astral.sh/uv/)'s Python tooling through a simple text analysis tool.** UV is a modern package manager that handles dependencies, environments, and project setup in one tool. This project features a Python packaged application, pytest TDD, ruff linting, and [pre-commit hooks](.pre-commit-config.yaml). Includes IDE setup with [extensions](.vscode/extensions.json), [settings](.vscode/settings.json), and ruff/pylance [config](pyproject.toml).
+**Showcases [UV](https://docs.astral.sh/uv/) through a simple text analysis tool.** 
+
+UV is a modern Python package manager that handles dependencies, environments, and project setup in one tool. It replaces the traditional requirements.txt and pip workflow completely. This project is a UV [packaged application](https://docs.astral.sh/uv/concepts/projects/init/#packaged-applications) with [pre-commit Git hooks](.pre-commit-config.yaml) for automated testing with `pytest`, linting and formatting with `ruff`, and `uv-lock` for reproducible environments.
 
 ```bash
 # Run from anywhere (packaged CLI available in PATH)
@@ -15,7 +17,9 @@ Characters: 6128
 
 *A simple CLI tool to analyse text files.*
 
-UV replaces the traditional requirements.txt and pip workflow with integrated tooling.
+![pip to uv migration diagram](images/pip-to-uv.webp)
+
+Includes Cursor/VSCode setup with [extensions](.vscode/extensions.json), [settings](.vscode/settings.json), ruff/pylance [config](pyproject.toml), and [gitattributes](.gitattributes) to support development on any platform.
 
 ## Prerequisites
 
