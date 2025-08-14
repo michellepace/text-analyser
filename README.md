@@ -160,3 +160,11 @@ Text-analyser is a [UV Packaged Application](https://docs.astral.sh/uv/concepts/
 - ❌ Simple prototypes without professional requirements
 
 **Without `--package`, this would remain a collection of Python files that can't be installed, shared, or used as a real tool.** 🦚
+
+## ❤ UV - The What and Why
+
+[Why Python Developers Are Switching to UV](https://www.youtube.com/watch?v=5rTwOt9Qgik) (9mins, Aug 2025)
+
+[UV: The Python Tool Everyone Is Switching To](https://www.youtube.com/watch?v=k0F9YaAbNwo) (12mins, Aug 2025)
+
+[Stop Using Pip - This New Tool is 100x Faster (UV Tutorial)](https://www.youtube.com/watch?v=6pttmsBSi8M) (17mins, Jun 2025)
