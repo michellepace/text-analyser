@@ -1,6 +1,6 @@
 # README — Text Analyser With UV 🎯
 
-**Showcases [UV](https://docs.astral.sh/uv/) through a simple text analysis tool.** 
+**Showcases [UV](https://docs.astral.sh/uv/) through a simple text analysis tool.**
 
 UV is a modern Python package manager that handles dependencies, environments, and project setup in one tool. It replaces the traditional requirements.txt and pip workflow completely. This project is a UV [packaged application](https://docs.astral.sh/uv/concepts/projects/init/#packaged-applications) with [pre-commit Git hooks](.pre-commit-config.yaml) for automated testing with `pytest`, linting and formatting with `ruff`, and `uv-lock` for reproducible environments.
 

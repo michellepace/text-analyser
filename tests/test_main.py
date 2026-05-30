@@ -1,11 +1,16 @@
 """Tests for CLI interface."""
 
-from pathlib import Path
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 from unittest.mock import patch
 
 import pytest
 
 from text_analyser.main import analyse_file
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 def test_main_with_file(tmp_path: Path) -> None:

@@ -3,10 +3,8 @@ name = "text-analyser"
 version = "0.1.0"
 description = "A simple CLI tool to analyse text files (words, lines, characters)"
 readme = "README.md"
-authors = [
-    { name = "Michelle", email = "" }
-]
-requires-python = ">=3.13"
+
+requires-python = ">=3.14"
 dependencies = []
 
 [project.scripts]
@@ -18,20 +16,20 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
-    "pre-commit>=4.2.0",
-    "pytest>=8.4.1",
-    "ruff>=0.12.7",
+    "pre-commit>=4.6.0",
+    "pytest>=9.0.3",
+    "ruff>=0.15.15",
 ]
 
 [tool.pyright]
-# Type Checker is needed as Ruff is only a linter: https://docs.astral.sh/ruff/faq/
-# For Cursor (Cursor Pyright extension), for VSCode (Microsoft Pylance)
-# Cursor Pyright forks BasedPyright, some lint rules overlap with Ruff, causes dupe errors
+# A type checker is needed because Ruff is only a linter
+# In VSCode, the Pylance extension reads this [tool.pyright] config and type-checks as you edit.
+# (Pylance is Microsoft's language server; Pyright is the type checker it runs underneath.)
 
-# CP default
+# Pyright's default type-checking strictness.
 typeCheckingMode = "standard"
 
-# Disable Basedpyright rules that dupe Ruff
+# Disable Pyright checks that overlap with Ruff, to avoid duplicate errors.
 reportUnusedImport = false      # Ruff F401 handles it
 reportUnusedVariable = false    # Ruff F841 handles it
 reportDuplicateImport = false   # Ruff F811 handles it
@@ -39,7 +37,7 @@ reportDuplicateImport = false   # Ruff F811 handles it
 [tool.ruff]
 # Strictest ruff settings
 line-length = 88
-target-version = "py313"
+target-version = "py314"
 
 [tool.ruff.lint]
 # Enable all available rules

@@ -1,6 +1,11 @@
 """File reading utilities with error handling."""
 
-from pathlib import Path
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 def read_file(filepath: Path) -> str:

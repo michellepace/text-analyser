@@ -1,0 +1,17 @@
+globs:
+  - "**/*.md" # All .md files; pruned by ignores below
+
+ignores:
+  - ".venv/**"
+  - ".pytest_cache/**"
+  - "__pycache__/**"
+
+# Disable rules
+config:
+  default: true # Enable all rules by default
+  MD013: false  # don't enforce a maximum line length
+  MD031: false  # don't require blank lines around code blocks
+  MD032: false  # don't require blank lines around lists
+  MD036: false  # don't disallow emphasis used instead of a heading
+  MD040: false  # don't require a language on fenced code blocks
+  MD060: false  # don't require consistent table pipe spacing

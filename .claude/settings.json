@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "my-claude-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "michellepace/my-claude-marketplace"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "git-utils@my-claude-marketplace": true
+  }
+}
